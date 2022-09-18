@@ -3,6 +3,8 @@ body {
   font: 1.2em "Fira Sans", sans-serif;
   background-color: #840B0B;
   overflow: hidden;
+  max-width: 1400px;
+  margin: auto;
 }
 
 main {
