@@ -1,40 +1,48 @@
+import {
+  latestImagesAmount,
+  logAndReturn,
+  WIDTH,
+} from './modules/helper-functions.js';
+
+import {
+  createImageComponent,
+  currentImages,
+  resetCurrentImage,
+  imagesGrid,
+} from './modules/edit-html.js';
+
+const BREAKPOINTS = {
+  largest_4: 1475,
+  medium_3: 1132,
+  mobile: 768,
+}
+
 const debugElement = document.getElementsByTagName("nav");
 debugElement[0].onclick = () => resetDisplayedImages();
 
-const imagesGrid = document.getElementsByClassName('Images')[0];
 const displayedImageIds = [];
-let currentImages = [];
 
-function createImageComponent(randomNumber) {
-  const singleImage = document.createElement("img");
-  singleImage.src=`https://picsum.photos/1200/1600?random=${randomNumber}`;
-
-  const imageShadow = document.createElement("div");
-  imageShadow.appendChild(singleImage);
-  imageShadow.className = 'img-shadow';
-
-  const imageContainer = document.createElement("div");
-  imageContainer.appendChild(imageShadow);
-  imageContainer.className = "Image-container";
-
-  currentImages.push(imageContainer);
+function decideAmountOfImagesBasedOnScreenSize() {
+  if(WIDTH >= BREAKPOINTS.largest_4) return logAndReturn(8);
+  if(WIDTH >= BREAKPOINTS.medium_3) return logAndReturn(6);
+  if(WIDTH >= BREAKPOINTS.mobile) return logAndReturn(4);
+  if(WIDTH <= BREAKPOINTS.mobile) return logAndReturn(1);
 }
 
-// #region create 8 unique ids to select images in next steps
 function makeSureVisibleIdsUnique(id) {
   if (displayedImageIds.some((imageId) => imageId === id)) {
-    makeSureVisibleIdsUnique(id+1);
+    return makeSureVisibleIdsUnique(id+1);
   }
   displayedImageIds.push(id);
 }
 
 function makeRandomIds() {
-  for(let i = 0; i < 8; i++) {
+  const displayedImages = decideAmountOfImagesBasedOnScreenSize();
+  for(let i = 0; i < displayedImages; i++) {
     const randomNumber = Math.round(Math.random() * 100);
     makeSureVisibleIdsUnique(randomNumber);
   }
 }
-// #endregion
 
 function removeOldImages() {
   while (imagesGrid.lastChild) {
@@ -45,13 +53,16 @@ function removeOldImages() {
 function resetDisplayedImages() {
   makeRandomIds();
   if(displayedImageIds.length > 8) displayedImageIds.splice(0, displayedImageIds.length - 8);
-  currentImages = [];
+  resetCurrentImage();
   displayedImageIds.forEach((imageId) => createImageComponent(imageId));
   removeOldImages();
   currentImages.forEach((currentImage) => imagesGrid.appendChild(currentImage));
 }
 
 document.onload = resetDisplayedImages();
+
+window.addEventListener('resize', () => {
+});
 
 // main[0].addEventListener("wheel", (event) =>{
 //   console.log({ event });

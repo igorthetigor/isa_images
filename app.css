@@ -1,8 +1,15 @@
+:root {
+  --image-width: 300px;
+  --image-height: 400px;
+  --grid-lg-gap: 40px;
+}
+
 body {
   margin: 0;
   font: 1.2em "Fira Sans", sans-serif;
   background-color: #840B0B;
-  overflow: hidden;
+  /* overflow-y: hidden; */
+  /* overflow: hidden; */
 }
 
 main {
@@ -15,15 +22,21 @@ nav {
   color: white;
 }
 
+
+/* images container ( GRID ) */
 .Images {
   display: grid;
-  max-width: 1400px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 5%;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 40px;
-  row-gap: 40px;
+  grid-template-columns: repeat(4, calc(var(--image-width) + 24px));
+  column-gap: var(--grid-lg-gap);
+  row-gap: var(--grid-lg-gap);
+  width: fit-content;
+  margin: 0 auto;
+}
+
+@media (width < 1450px){
+  .Images {
+    grid-template-columns: repeat(3, calc(var(--image-width) + 24px));
+  }
 }
 
 footer {
@@ -39,22 +52,17 @@ footer {
   background-color: yellow;
 }
 
-@media (max-width: 640px) {
+@media (min-width: 640px) and (max-width: 1132px) {
   .Images {
-    grid-template-columns: 1fr;
-    margin-left: 15%;
-    margin-right: 15%;
+    grid-template-columns: repeat(2, calc(var(--image-width) + 24px));
   }
 }
 
-@media (min-width: 640px) and (max-width: 1040px) {
+@media (max-width: 768px) {
   .Images {
-    grid-template-columns: 1fr 1fr;
-    margin-left: 10%;
-    margin-right: 10%;
+    grid-template-columns: calc(var(--image-width) + 24px);
   }
-}
-  
+}  
 
 .img-shadow {
   margin: 12px;
@@ -85,4 +93,11 @@ footer {
 img {
   width: 100%;
   height: 100%;
+}
+
+.Image-container:only-child {  
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
