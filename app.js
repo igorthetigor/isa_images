@@ -12,9 +12,9 @@ import {
 } from './modules/edit-html.js';
 
 const BREAKPOINTS = {
-  largest_4: 1475,
-  medium_3: 1132,
-  mobile: 768,
+  largest_4: 1820,
+  medium_3: 1480,
+  mobile: 1052,
 }
 
 const debugElement = document.getElementsByTagName("nav");

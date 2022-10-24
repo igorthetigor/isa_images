@@ -1,13 +1,17 @@
 :root {
   --image-width: 300px;
   --image-height: 400px;
-  --grid-lg-gap: 40px;
+  --grid-lg-gap: 100px;
 }
 
 body {
   margin: 0;
   font: 1.2em "Fira Sans", sans-serif;
   background-color: #840B0B;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   /* overflow-y: hidden; */
   /* overflow: hidden; */
 }
@@ -16,9 +20,12 @@ main {
   overflow: hidden;
 }
 
+.Header, .Footer {
+  height: 48px;
+}
+
 nav {
-  padding-top: 10px;
-  padding-left: 10px;
+  padding: 10px;
   color: white;
 }
 
@@ -33,7 +40,7 @@ nav {
   margin: 0 auto;
 }
 
-@media (width < 1450px){
+@media (width < 1820px){
   .Images {
     grid-template-columns: repeat(3, calc(var(--image-width) + 24px));
   }
@@ -48,24 +55,24 @@ footer {
 
 .horizontalScrollBar {
   width: 24px;
-  height: 8px;
+  height: 48px;
   background-color: yellow;
 }
 
-@media (min-width: 640px) and (max-width: 1132px) {
+@media (min-width: 1053px) and (max-width: 1480px) {
   .Images {
     grid-template-columns: repeat(2, calc(var(--image-width) + 24px));
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1052px) {
   .Images {
     grid-template-columns: calc(var(--image-width) + 24px);
   }
 }  
 
 .img-shadow {
-  margin: 12px;
+  margin: 20px;
 }
 
 .img-shadow {
@@ -93,11 +100,4 @@ footer {
 img {
   width: 100%;
   height: 100%;
-}
-
-.Image-container:only-child {  
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
 }
